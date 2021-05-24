@@ -5,6 +5,7 @@ from sklearn import metrics
 
 import loader
 import preprocessor as pp
+import pickle
 
 class ModelCreator:
     def __init__(self):
@@ -34,8 +35,13 @@ class ModelCreator:
         print(acc_score)
         print(confusion_matrix)
 
+    def export_model(self, file_name):
+        with open(file_name, 'wb') as file:
+            pickle.dump(self.nb, file)
+
 if __name__ == '__main__':
     model_creator = ModelCreator()
     model_creator.prepare_data()
     model_creator.create_model()
     model_creator.test_model()
+    model_creator.export_model('model_exported')

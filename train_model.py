@@ -39,10 +39,14 @@ class ModelCreator:
         with open(file_name, 'wb') as file:
             pickle.dump(self.nb, file)
 
+    def export_vocabulary(self, file_name):
+        with open(file_name, 'wb') as file:
+            pickle.dump(self.vectorizer.vocabulary_, file)
+
 if __name__ == '__main__':
     model_creator = ModelCreator()
     model_creator.prepare_data()
     model_creator.create_model()
     model_creator.test_model()
-    model_creator.export_model('model_exported')
-    
+    model_creator.export_model('model.pickle')
+    model_creator.export_vocabulary('vocabulary.pickle')

@@ -1,3 +1,4 @@
+import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
@@ -33,9 +34,15 @@ class ModelCreator:
         self.confusion_matrix = metrics.confusion_matrix(self.y_test, y_pred_class)
         print(f'Accuracy score: {self.acc_score}')
         print(f'Confusion matrix:\n {self.confusion_matrix}')
+    
+    def export_model(self, file_name):
+        with open(file_name, 'wb') as file:
+            pickle.dump(self.nb, file)
 
 if __name__ == '__main__':
     model_creator = ModelCreator()
     model_creator.prepare_data()
     model_creator.create_model()
     model_creator.test_model()
+    model_creator.export_model('model_exported')
+    

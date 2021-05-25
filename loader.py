@@ -25,3 +25,4 @@ class Loader:
     
     def _save_data_from_remote_to_local_machine(self, path_to_file):
         kaggle_loader = KaggleLoader()
+        

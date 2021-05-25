@@ -38,5 +38,7 @@ class Preprocessor:
         return without_stopwords
     
     def normalize_labels(self, dataset, column_name):
-        dataset[column_name] = dataset.get(column_name).map(self.label_text_to_int_mapping)
+        dataset_to_return = dataset.copy(deep=True)
+        dataset_to_return[column_name] = dataset.get(column_name).map(self.label_text_to_int_mapping)
         return dataset
+        

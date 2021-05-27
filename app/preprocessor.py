@@ -1,4 +1,5 @@
 import re
+import nltk
 from nltk.corpus import stopwords
 
 class Preprocessor:
@@ -32,6 +33,7 @@ class Preprocessor:
         whitespaces = ' '.join([word for word in alphanumeric_text.split() if word != ' '])
         
         # 4. Remove stopwords
+        nltk.download('stopwords')
         stop = stopwords.words('english')
         without_stopwords = ' '.join([word for word in whitespaces.split() if word not in stop])
         

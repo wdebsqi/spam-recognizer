@@ -11,7 +11,7 @@ class Preprocessor:
         }
         nltk.download('stopwords')
         english_stopwords = stopwords.words('english')
-        self.text_normalizer(stopwords_to_exclude=english_stopwords)
+        self.text_normalizer = text_normalizer.TextNormalizer(stopwords_to_exclude=english_stopwords)
 
     def preprocess_data(self, source_data):
         data_with_clean_text = self.clean_column_containing_text(

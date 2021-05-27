@@ -5,7 +5,7 @@ class TextNormalizer:
         self.stopwords_to_exclude = stopwords_to_exclude
 
     def normalize(self, original_text):
-        lowered_text = self.tranform_to_lowercase(original_text)
+        lowered_text = self.transform_to_lowercase(original_text)
         
         alphanumeric_text = self.remove_non_alphanumeric_chars(lowered_text)
         
@@ -25,5 +25,4 @@ class TextNormalizer:
         return ' '.join([word for word in text.split() if word != ' '])
     
     def remove_stopwords(self, text):
-        stop = stopwords.words('english')
-        return ' '.join([word for word in text.split() if word not in stop])
+        return ' '.join([word for word in text.split() if word not in self.stopwords_to_exclude])

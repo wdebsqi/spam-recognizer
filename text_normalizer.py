@@ -1,6 +1,9 @@
 import re
 
 class TextNormalizer:
+    def __init__(self, stopwords_to_exclude=None):
+        self.stopwords_to_exclude = stopwords_to_exclude
+
     def normalize(self, original_text):
         lowered_text = self.tranform_to_lowercase(original_text)
         

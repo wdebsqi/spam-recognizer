@@ -1,6 +1,7 @@
-import re
 import nltk
 from nltk.corpus import stopwords
+
+import text_normalizer
 
 class Preprocessor:
     def __init__(self):
@@ -9,7 +10,8 @@ class Preprocessor:
             'spam': 1
         }
         nltk.download('stopwords')
-        self.stop = stopwords.words('english')
+        english_stopwords = stopwords.words('english')
+        self.text_normalizer(stopwords_to_exclude=english_stopwords)
 
     def preprocess_data(self, source_data):
         data_with_clean_text = self.clean_column_containing_text(
@@ -21,27 +23,10 @@ class Preprocessor:
         return preprocessed_data
     
     def clean_column_containing_text(self, dataset, column_name):
-        dataset[column_name] = dataset[column_name].apply(lambda row: self._text_cleanup(row))
+        dataset[column_name] = dataset[column_name].apply(lambda row: self.text_normalizer.normalize(row))
         return dataset
-    
-    def _text_cleanup(self, original_text):
-        
-        # 1. Original to lowercase
-        lower_text = original_text.lower()
-        
-        # 2. Remove all non-alphanumeric characters
-        alphanumeric_text = re.sub(r'[^\d\w\s]', '', lower_text)
-        
-        # 3. Remove redundant whitespaces.
-        whitespaces = ' '.join([word for word in alphanumeric_text.split() if word != ' '])
-        
-        # 4. Remove stopwords
-        without_stopwords = ' '.join([word for word in whitespaces.split() if word not in self.stop])
-        
-        return without_stopwords
     
     def normalize_labels(self, dataset, column_name):
         dataset_to_return = dataset.copy(deep=True)
         dataset_to_return[column_name] = dataset.get(column_name).map(self.label_text_to_int_mapping)
         return dataset
-        

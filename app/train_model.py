@@ -17,7 +17,9 @@ class ModelCreator:
     def prepare_data(self):
         self.source_data = self.loader.load_source_data(
             path_to_file='spam.csv')
-        self.preprocessed_data = self.preprocessor.preprocess_data(self.source_data)
+        self.preprocessed_data = self.preprocessor.preprocess_data(
+            source_data=self.source_data,
+            column_mapping={'text_column': 'message', 'label_column': 'label'})
 
     def create_model(self):
         inputs = self.preprocessed_data.message

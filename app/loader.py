@@ -17,12 +17,13 @@ class Loader:
     
     def _load_from_csv(self, path_to_file):
         return pd.read_csv(
-            'spam.csv',
+            path_to_file,
             names=['label', 'message'],
             index_col=False,
             header=0,
             encoding="ISO-8859-1")
     
     def _save_data_from_remote_to_local_machine(self, path_to_file):
+        #TODO Add connection to Kaggle through Kaggle API
         kaggle_loader = KaggleLoader()
         

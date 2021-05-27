@@ -8,6 +8,9 @@ class Preprocessor:
             'ham': 0,
             'spam': 1
         }
+        nltk.download('stopwords')
+        self.stop = stopwords.words('english')
+
     def preprocess_data(self, source_data):
         data_with_clean_text = self.clean_column_containing_text(
             dataset=source_data,
@@ -33,9 +36,7 @@ class Preprocessor:
         whitespaces = ' '.join([word for word in alphanumeric_text.split() if word != ' '])
         
         # 4. Remove stopwords
-        nltk.download('stopwords')
-        stop = stopwords.words('english')
-        without_stopwords = ' '.join([word for word in whitespaces.split() if word not in stop])
+        without_stopwords = ' '.join([word for word in whitespaces.split() if word not in self.stop])
         
         return without_stopwords
     
